@@ -1,0 +1,43 @@
+{
+  "name": "@magnit-ce/task-board",
+  "version": "0.0.1",
+  "description": "A custom html element that provides layout and management for custom task-list elements.",
+  "type": "module",
+  "main": "dist/task-board.js",
+  "module": "dist/task-board.mjs",
+  "types": "dist/task-board.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup task-board.ts --format cjs,esm --dts --clean",
+    "build-vanilla": "tsup task-board.ts --format esm --dts --clean --outDir ./vanilla",
+    "minify": "tsup task-board.ts --format esm --config ./tsup.config.min.ts --outDir ./vanilla --minify",
+    "lint": "tsup task-board.ts --format esm --tsconfig ./tsconfig.lint.json",
+    "package": "npm run build && npm run build-vanilla && npm run minify",
+    "release": "npm run package && changeset publish"
+  },
+  "keywords": [
+    "custom",
+    "element",
+    "html",
+    "task",
+    "task management",
+    "board",
+    "layout",
+    ""
+  ],
+  "author": "catapart",
+  "license": "CC0-1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/catapart/magnitce-task-board"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.7",
+    "minify": "^11.4.0",
+    "terser": "^5.31.3",
+    "tsup": "^8.2.0",
+    "typescript": "^5.5.3"
+  }
+}

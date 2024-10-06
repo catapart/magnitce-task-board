@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Board Demo</title>
+    <link rel="stylesheet" href="./demo-page.css">
+</head>
+<body>
+    <main>
+        <h1>Overview</h1>
+        <div class="overview">
+            <div class="description">
+                <h2>Description</h2>
+                <!-- <p>The <code>&lt;task-list&gt;</code> element provides features and events for managing a list of "task" items.</p>
+                <p>"Tasks" are represented by <code>&lt;task-card&gt;</code> elements, by default, but can be any element type.</p>
+                <p>The <code>&lt;task-list&gt;</code> element dispatches events when changes occur and can provide drag-and-drop functionality for its items.</p> -->
+            </div>
+        </div>
+        <h1>Examples</h1>
+        <article class="basic">
+            <header>Basic Example</header>
+            <div class="description">
+                <!-- <p>The <code>&lt;task-list&gt;</code> element's color, name, and description can all be adjusted either in the document, or using the element's attribtues.</p>
+                <p>Add <code>&lt;task-card&gt;</code> elements to a <code>&lt;task-card&gt;</code> element using static HTML, or by injecting the element dynamically with javascript.</p>
+                <p>In this example, the <code>&lt;task-list&gt;</code>'s <code>add</code> event is being handled to add new tasks. Each task is also having its <code>remove</code> event handled to extract the element from the DOM:</p> -->
+            </div>
+            <div class="example">
+                <task-board>
+                    <task-list name="Shopping">
+                        <task-list name="Grocery" drag-drop>
+                            <task-list name="Produce" drag-drop>
+                                <task-card value="Tomato"></task-card>
+                                <task-card value="Cucumber"></task-card>
+                                <task-card value="Red Onion"></task-card>
+                            </task-list>
+                            <task-list name="Dairy" drag-drop>
+                                <task-card value="Milk"></task-card>
+                                <task-card value="Butter"></task-card>
+                            </task-list>
+                            <task-list name="Snacks" drag-drop>
+                                <task-card value="Corn chips"></task-card>
+                                <task-card value="Popcorn"></task-card>
+                                <task-card value="Ice cream sandwiches"></task-card>
+                            </task-list>
+                        </task-list>
+                        <task-list name="Cleaning" drag-drop>
+                            <task-card value="Trash bags"></task-card>
+                        </task-list>
+                        <task-list name="Garden" drag-drop>
+                            <task-card value="Soil"></task-card>
+                            <task-card value="Trimmer string"></task-card>
+                        </task-list>
+                        <task-list name="Pharmacy" drag-drop>
+                            <task-card value="My prescription"></task-card>
+                            <task-card value="Generic painkiller"></task-card>
+                        </task-list>
+                    </task-list>
+                </task-board>
+            </div>
+            <script type="module">
+                const basicExample = document.querySelector('article.basic');
+                const basicTaskList = basicExample.querySelector('task-list');
+                document.addEventListener('DOMContentLoaded', () =>
+                {
+                    basicTaskList.addEventListener('add', () =>
+                    {
+                        const task = document.createElement('task-card');
+                        task.addEventListener('remove', basic_task_onRemove);
+                        basicTaskList.append(task);
+                    });
+
+                    const tasks = [...basicTaskList.querySelectorAll('task-card')];
+                    for(let i = 0; i < tasks.length; i++)
+                    {
+                        tasks[i].addEventListener('remove', basic_task_onRemove);
+                    }
+                });
+
+                function basic_task_onRemove(event)
+                {
+                    const task = event.currentTarget;
+                    task.remove();
+                }
+            </script>
+        </article>
+        <article class="drag-and-drop">
+            <header>Drag and Drop</header>
+            <div class="description">
+                <!-- <p>"Drag and Drop" functionality can be enabled on any <code>&lt;task-list&gt;</code> element by setting the <code>drag-drop</code> attribute <em>(does not require a value)</em>.</p>
+                <p>When using the drag and drop functionality, the lists will need to query for other list items that are available as potential siblings for the list item that is being dragged. To do this, the <code>&lt;task-list&gt;</code> element queries on a parent container. By default, this is the document's <code>&lt;body&gt;</code> element, but it can be set to any element that contains all of the <code>&lt;task-list&gt;</code>s you want to enable dragging and dropping for.</p>
+                <p>You can see a demonstration of this by dragging an item from this "Drag and Drop" example, down to the "Events" example below, or vice versa.</p>
+                <p>By contrast, dragging and dropping does not work correctly between the "Nested" example and any other example, because the "Nested" example explicitly limits the parent scope.</p>
+                <p>In this example, the <code>&lt;task-list&gt;</code>s each have a <code>drag-drop</code> attribute, and so any of their items can be mixed and matched by dragging them. Note that the attribute is the only requirement; no additional javascript is needed to handle the drag and drop features:</p> -->
+            </div>
+            <div class="example">
+                <task-board>
+                    <task-list name="Shopping">
+                        <task-list name="Grocery" drag-drop>
+                            <task-list name="Produce" drag-drop>
+                                <task-card value="Tomato"></task-card>
+                                <task-card value="Cucumber"></task-card>
+                                <task-card value="Red Onion"></task-card>
+                            </task-list>
+                            <task-list name="Dairy" drag-drop>
+                                <task-card value="Milk"></task-card>
+                                <task-card value="Butter"></task-card>
+                            </task-list>
+                            <task-list name="Snacks" drag-drop>
+                                <task-card value="Corn chips"></task-card>
+                                <task-card value="Popcorn"></task-card>
+                                <task-card value="Ice cream sandwiches"></task-card>
+                            </task-list>
+                        </task-list>
+                        <task-list name="Cleaning" drag-drop>
+                            <task-card value="Trash bags"></task-card>
+                        </task-list>
+                        <task-list name="Garden" drag-drop>
+                            <task-card value="Soil"></task-card>
+                            <task-card value="Trimmer string"></task-card>
+                        </task-list>
+                        <task-list name="Pharmacy" drag-drop>
+                            <task-card value="My prescription"></task-card>
+                            <task-card value="Generic painkiller"></task-card>
+                        </task-list>
+                    </task-list>
+                </task-board>
+            </div>
+        </article>
+        <article class="events">
+            <header>Events</header>
+            <div class="description">
+                <!-- <p>The <code>&lt;task-list&gt;</code> element dispatches a <code>change</code> event whenever it is changed. This includes when the properties, like name or color, change as well as when the list's items change order.</p>
+                <p>When the "Add" button is clicked, the <code>&lt;task-list&gt;</code> will dispatch and <code>add</code> event.</p>
+                <p>When the list's <code>collapsed</code> state changes, like when the button toggles it, the <code>collapsed</code> event will be dispatched.</p>
+                <p>If a <code>&lt;task-list&gt;</code> element is added as a child to another <code>&lt;task-list&gt;</code> element, the top-level <code>&lt;task-list&gt;</code> element will dispatch a <code>nested</code> event.</p>
+                <p>If the drag and drop feature is enabled, the <code>&lt;task-list&gt;</code> element will dispatch an <code>added</code> event whenever an item is dragged into the list, and a <code>removed</code> event whenever an item is dropped in a different list than it was dragged from.</p>
+                <p>In this example, each event fired by the <code>&lt;task-list&gt;</code> element is listened for and the event's data is logged out to the event log, below:</p> -->
+            </div>
+            <div class="example">
+
+            </div>
+            <div class="log">
+                <header>
+                    <span class="title">Event Log</span>
+                </header>
+                <ul></ul>
+            </div>
+            <script type="module">
+                // const eventsExample = document.querySelector('article.events');
+                // const eventsLog = document.querySelector('article.events .log ul')
+                document.addEventListener('DOMContentLoaded', () =>
+                {
+                    
+                });
+                function logResult(result)
+                {
+                    const entry = document.createElement('li');
+                    entry.textContent = JSON.stringify(result, null, 2);
+                    entry.classList.add('entry');
+                    eventsLog.append(entry);
+                }
+            </script>
+        </article>
+    </main>
+    <script type="module" src="./task-card.min.js"></script>
+    <script type="module" src="./task-list.min.js"></script>
+    <script type="module" src="../vanilla/task-board.js"></script>
+</body>
+</html>

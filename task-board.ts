@@ -24,10 +24,21 @@ COMPONENT_STYLESHEET.replaceSync(`
 {
     overflow-x: auto;
     overflow-y: hidden;
-    display: inline-grid;
+    display: flex;
+    flex-direction: column;
+}
+[part="lists"]
+{
+    display: grid;
     grid-auto-flow: column;
-    justify-content: flex-start;
-}`);
+    flex: 1;
+    overflow: hidden;
+}
+::slotted(task-list)
+{
+    overflow: hidden auto;
+}
+`);
 
 
 const COMPONENT_TAG_NAME = 'task-board';
@@ -40,7 +51,7 @@ export class TaskBoardElement extends HTMLElement
     {
         super();
         this.attachShadow({ mode: "open" });
-        this.shadowRoot!.innerHTML = `<slot></slot>`;
+        this.shadowRoot!.innerHTML = `<slot name="header"></slot><div part="lists"><slot></slot></div><slot name="footer"></slot>`;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
 
         

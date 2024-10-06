@@ -26,9 +26,33 @@
                 <p>In this example, the <code>&lt;task-list&gt;</code>'s <code>add</code> event is being handled to add new tasks. Each task is also having its <code>remove</code> event handled to extract the element from the DOM:</p> -->
             </div>
             <div class="example">
+                <style>
+                    article.basic task-board
+                    {
+                        height: 600px;
+                    }
+                </style>
                 <task-board>
+                    <h2 slot="header">Around the House</h2>
+                    <task-list name="Housework">
+                        <task-list name="Kitchen" drag-drop>
+                            <task-card value="Dishes"></task-card>
+                            <task-card value="Counters"></task-card>
+                            <task-card value="Floor"></task-card>
+                        </task-list>
+                        <task-list name="Laundry" drag-drop>
+                            <task-card value="Wash and Dry"></task-card>
+                            <task-card value="Ironing"></task-card>
+                            <task-card value="Change Linens"></task-card>
+                        </task-list>
+                        <task-list name="Yard" drag-drop>
+                            <task-card value="Mow"></task-card>
+                            <task-card value="Edge"></task-card>
+                            <task-card value="Rake"></task-card>
+                        </task-list>
+                    </task-list>
                     <task-list name="Shopping">
-                        <task-list name="Grocery" drag-drop>
+                        <task-list name="Grocery">
                             <task-list name="Produce" drag-drop>
                                 <task-card value="Tomato"></task-card>
                                 <task-card value="Cucumber"></task-card>
@@ -56,6 +80,12 @@
                             <task-card value="Generic painkiller"></task-card>
                         </task-list>
                     </task-list>
+                    <task-list name="Practice" drag-drop>
+                        <task-card value="Warmup"></task-card>
+                        <task-card value="Set list"></task-card>
+                        <task-card value="New songs"></task-card>
+                    </task-list>
+                    <footer slot="footer">Today: <span class="value"></span></footer>
                 </task-board>
             </div>
             <script type="module">
@@ -63,6 +93,9 @@
                 const basicTaskList = basicExample.querySelector('task-list');
                 document.addEventListener('DOMContentLoaded', () =>
                 {
+                    const today = new Date(Date.now());
+                    document.querySelector('article.basic [slot="footer"] .value').textContent = today.toDateString();
+
                     basicTaskList.addEventListener('add', () =>
                     {
                         const task = document.createElement('task-card');

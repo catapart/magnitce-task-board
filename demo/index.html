@@ -4,106 +4,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Board Demo</title>
-    <link rel="stylesheet" href="./demo-page.css">
+    <link rel="stylesheet" href="./demo-page.css">    
+    <style>
+        article:is(.basic,.scoped) task-board
+        {
+            height: 800px;
+            border: solid 2px;
+            border-radius: 3px;
+            margin-block: 1em;
+        }
+        article:is(.basic,.scoped) task-board :is(h4, footer)
+        {
+            background-color: infobackground;
+            color: infotext;
+            padding: 1.33em .665em;
+            margin-block: 0;
+        }
+        article task-board task-list:has(task-list)::part(add-button)
+        {
+            display: none;
+        }
+        article:is(.basic,.scoped) task-board > footer
+        {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        article .example
+        {
+            display: grid;
+        }
+    </style>
 </head>
 <body>
     <main>
         <h1>Overview</h1>
         <div class="overview">
-            <div class="description">
-                <h2>Description</h2>
-                <!-- <p>The <code>&lt;task-list&gt;</code> element provides features and events for managing a list of "task" items.</p>
-                <p>"Tasks" are represented by <code>&lt;task-card&gt;</code> elements, by default, but can be any element type.</p>
-                <p>The <code>&lt;task-list&gt;</code> element dispatches events when changes occur and can provide drag-and-drop functionality for its items.</p> -->
-            </div>
+            <p>The <code>&lt;task-board&gt;</code> element provides a layout and expected scroll management for <code>&lt;task-list&gt;</code> elements. It can be targeted to handle <code>&lt;task-list&gt;</code> and <code>&lt;task-card&gt;</code> events, and it includes a header and footer as a convenience, but it is mostly a wrapper/container element that arranges <code>&lt;task-list&gt;</code>s for common use-cases.</p>
         </div>
         <h1>Examples</h1>
         <article class="basic">
             <header>Basic Example</header>
             <div class="description">
-                <!-- <p>The <code>&lt;task-list&gt;</code> element's color, name, and description can all be adjusted either in the document, or using the element's attribtues.</p>
-                <p>Add <code>&lt;task-card&gt;</code> elements to a <code>&lt;task-card&gt;</code> element using static HTML, or by injecting the element dynamically with javascript.</p>
-                <p>In this example, the <code>&lt;task-list&gt;</code>'s <code>add</code> event is being handled to add new tasks. Each task is also having its <code>remove</code> event handled to extract the element from the DOM:</p> -->
+                <p>The <code>&lt;task-board&gt;</code> element provides a layout for <code>&lt;task-list&gt;</code> elements. This includes a header and footer, as well as a horizontally-scrolling section for the lists.</p>
+                <p>Because each <code>&lt;task-list&gt;</code> element and <code>&lt;task-card&gt;</code> element each dispatch their associated events - and because each of those events bubble - the <code>&lt;task-board&gt;</code> element, itself, does not need to dispatch any events. Even without native events, the <code>&lt;task-board&gt;</code> element can still be targeted for listening to any of the <code>&lt;task-list&gt;</code> element's events, or <code>&lt;task-card&gt;</code> element's events.</p>
+                <p>The <code>&lt;task-card&gt;</code>s can be moved between lists by setting the <code>drag-drop</code> attribute for each <code>&lt;task-list&gt;</code> element that allows the drag-and-drop feature.</p>
+                <p>In this example, each <code>&lt;task-list&gt;</code> element has a <code>drag-drop</code> attribute, and events are being handled when the <code>add</code> event is dispatched from a <code>&lt;task-list&gt;</code> element, or a <code>remove</code>event is dispatched from a <code>&lt;task-card&gt;</code> element. Also, each list that contains a nested list has its add button hidden and the <code>drag-drop</code> attribute ommitted, to prevent any tasks from being assigned to a <code>&lt;task-list&gt;</code> that has nested <code>&lt;task-list&gt;</code>s.</p>
             </div>
             <div class="example">
                 <style>
-                    article.basic task-board
+                    article.basic .example
                     {
-                        height: 600px;
+                        display: grid;
                     }
                 </style>
                 <task-board>
-                    <h2 slot="header">Around the House</h2>
-                    <task-list name="Housework">
-                        <task-list name="Kitchen" drag-drop>
+                    <h4 slot="header">Around the House</h4>
+                    <task-list name="Housework" color="#4213ce">
+                        <task-list name="Kitchen" color="#7e51f5" drag-drop>
                             <task-card value="Dishes"></task-card>
                             <task-card value="Counters"></task-card>
                             <task-card value="Floor"></task-card>
                         </task-list>
-                        <task-list name="Laundry" drag-drop>
+                        <task-list name="Laundry" color="#bea6fd" drag-drop>
                             <task-card value="Wash and Dry"></task-card>
                             <task-card value="Ironing"></task-card>
                             <task-card value="Change Linens"></task-card>
                         </task-list>
-                        <task-list name="Yard" drag-drop>
+                        <task-list name="Yard" color="#dbcdfe" drag-drop>
                             <task-card value="Mow"></task-card>
                             <task-card value="Edge"></task-card>
                             <task-card value="Rake"></task-card>
                         </task-list>
                     </task-list>
-                    <task-list name="Shopping">
-                        <task-list name="Grocery">
-                            <task-list name="Produce" drag-drop>
+                    <task-list name="Shopping" color="#1d6e72">
+                        <task-list name="Grocery" color="#a4f6fe">
+                            <task-list name="Produce" color="#08ccd8" drag-drop>
                                 <task-card value="Tomato"></task-card>
                                 <task-card value="Cucumber"></task-card>
                                 <task-card value="Red Onion"></task-card>
                             </task-list>
-                            <task-list name="Dairy" drag-drop>
+                            <task-list name="Dairy" color="#4ceefb" drag-drop>
                                 <task-card value="Milk"></task-card>
                                 <task-card value="Butter"></task-card>
                             </task-list>
-                            <task-list name="Snacks" drag-drop>
+                            <task-list name="Snacks" color="#ccfaff" drag-drop>
                                 <task-card value="Corn chips"></task-card>
                                 <task-card value="Popcorn"></task-card>
                                 <task-card value="Ice cream sandwiches"></task-card>
                             </task-list>
                         </task-list>
-                        <task-list name="Cleaning" drag-drop>
+                        <task-list name="Cleaning" color="#a4f6fe" drag-drop>
                             <task-card value="Trash bags"></task-card>
                         </task-list>
-                        <task-list name="Garden" drag-drop>
+                        <task-list name="Garden" color="#a4f6fe" drag-drop>
                             <task-card value="Soil"></task-card>
                             <task-card value="Trimmer string"></task-card>
                         </task-list>
-                        <task-list name="Pharmacy" drag-drop>
+                        <task-list name="Pharmacy" color="#a4f6fe" drag-drop>
                             <task-card value="My prescription"></task-card>
                             <task-card value="Generic painkiller"></task-card>
                         </task-list>
                     </task-list>
-                    <task-list name="Practice" drag-drop>
+                    <task-list name="Car" color="#63382c">
+                        <task-list name="Maintenance" color="#b54c2b" drag-drop>
+                            <task-card value="Oil change"></task-card>
+                            <task-card value="New wiper blades"></task-card>
+                        </task-list>
+                        <task-list name="Service" color="#e8825e" drag-drop>
+                            <task-card value="Hood dent"></task-card>
+                            <task-card value="New tires"></task-card>
+                        </task-list>
+                    </task-list>
+                    <task-list name="Practice" color="#5fa43c" drag-drop>
                         <task-card value="Warmup"></task-card>
                         <task-card value="Set list"></task-card>
                         <task-card value="New songs"></task-card>
                     </task-list>
-                    <footer slot="footer">Today: <span class="value"></span></footer>
+                    <footer slot="footer">
+                        <div class="info">Today: <span class="value"></span></div>
+                        <div class="tip"><small><em>Tip: Use <key>Shift</key> + <key>Mouse Scroll Wheel</key> to scroll horizontally.</em></small></div>
+                    </footer>
                 </task-board>
             </div>
             <script type="module">
                 const basicExample = document.querySelector('article.basic');
-                const basicTaskList = basicExample.querySelector('task-list');
+                const basicTaskBoard = basicExample.querySelector('task-board');
                 document.addEventListener('DOMContentLoaded', () =>
                 {
                     const today = new Date(Date.now());
                     document.querySelector('article.basic [slot="footer"] .value').textContent = today.toDateString();
 
-                    basicTaskList.addEventListener('add', () =>
+                    basicTaskBoard.addEventListener('add', (event) =>
                     {
                         const task = document.createElement('task-card');
                         task.addEventListener('remove', basic_task_onRemove);
-                        basicTaskList.append(task);
+                        const targetList = event.target; //currentTarget = task-board; target = task-list;
+                        targetList.append(task);
                     });
 
-                    const tasks = [...basicTaskList.querySelectorAll('task-card')];
+                    const tasks = [...basicTaskBoard.querySelectorAll('task-card')];
                     for(let i = 0; i < tasks.length; i++)
                     {
                         tasks[i].addEventListener('remove', basic_task_onRemove);
@@ -117,81 +158,373 @@
                 }
             </script>
         </article>
-        <article class="drag-and-drop">
-            <header>Drag and Drop</header>
+        <article class="scoped">
+            <header>Scoped Drag and Drop</header>
             <div class="description">
-                <!-- <p>"Drag and Drop" functionality can be enabled on any <code>&lt;task-list&gt;</code> element by setting the <code>drag-drop</code> attribute <em>(does not require a value)</em>.</p>
-                <p>When using the drag and drop functionality, the lists will need to query for other list items that are available as potential siblings for the list item that is being dragged. To do this, the <code>&lt;task-list&gt;</code> element queries on a parent container. By default, this is the document's <code>&lt;body&gt;</code> element, but it can be set to any element that contains all of the <code>&lt;task-list&gt;</code>s you want to enable dragging and dropping for.</p>
-                <p>You can see a demonstration of this by dragging an item from this "Drag and Drop" example, down to the "Events" example below, or vice versa.</p>
-                <p>By contrast, dragging and dropping does not work correctly between the "Nested" example and any other example, because the "Nested" example explicitly limits the parent scope.</p>
-                <p>In this example, the <code>&lt;task-list&gt;</code>s each have a <code>drag-drop</code> attribute, and so any of their items can be mixed and matched by dragging them. Note that the attribute is the only requirement; no additional javascript is needed to handle the drag and drop features:</p> -->
+                <p>To prevent <code>&lt;task-card&gt;</code> elements from being dragged and dropped onto <code>&lt;task-board&gt;</code> elements that they did not originate from, use the <code>&lt;task-list&gt;</code> element's <code>dragAndDropQueryParent</code> or <code>parentScopeSelector</code> properties.</p>
+                <p>In this example, each list in each board has its scope limited to prevent dragging between boards.</p>
             </div>
             <div class="example">
+                <style>
+                    article.scoped task-board
+                    {
+                        height: 600px;
+                    }
+                </style>
+                <!-- colors -->
+                <!-- styling -->
                 <task-board>
-                    <task-list name="Shopping">
-                        <task-list name="Grocery" drag-drop>
-                            <task-list name="Produce" drag-drop>
+                    <h4 slot="header">Project A</h4>
+                    <task-list name="Backlog">
+                        <task-list name="Next Sprint" drag-drop>
+                            <task-card value="Update UI design"></task-card>
+                            <task-card value="Implement new attack"></task-card>
+                            <task-card value="Bug Report:..."></task-card>
+                        </task-list>
+                        <task-list name="Unmanaged" drag-drop>
+                            <task-card value="Update spell particle effect"></task-card>
+                            <task-card value="Refactor save data binary"></task-card>
+                            <task-card value="Render terrain noise to texture"></task-card>
+                        </task-list>
+                    </task-list>
+                    <task-list name="Prepared" drag-drop>
+                            <task-card value="Change enemy behavior"></task-card>
+                            <task-card value="Update new lighting"></task-card>
+                    </task-list>
+                    <task-list name="In Progress" drag-drop>
+                            <task-card value="Replace level feature"></task-card>
+                    </task-list>
+                    <task-list name="Done" drag-drop>
+                            <task-card value="Implement character controller"></task-card>
+                            <task-card value="Greybox level A"></task-card>
+                            <task-card value="Bug Report:..."></task-card>
+                    </task-list>
+                </task-board>
+                <task-board class="rollout">
+                    <h4 slot="header">Project A - Product Rollout</h4>
+                    <task-list name="Development">
+                        <task-list name="Current Development" drag-drop>
+                            <task-card value="Vertical Slice - Chapter 1"></task-card>
+                            <task-card value="Engine design"></task-card>
+                        </task-list>
+                        <task-list name="Upcoming Development" drag-drop>
+                            <task-card value="Utilities development"></task-card>
+                            <task-card value="UI refinement"></task-card>
+                            <task-card value="Gameplay feedback implementation"></task-card>
+                        </task-list>
+                    </task-list>
+                    <task-list name="Manufacturing" drag-drop>
+                            <task-card value="Establish final print specifications"></task-card>
+                            <task-card value="Negotiate production line dates"></task-card>
+                    </task-list>
+                    <task-list name="Sales" drag-drop>
+                            <task-card value="Create product data"></task-card>
+                            <task-card value="Link new product page"></task-card>
+                    </task-list>
+                    <task-list name="Fullfillment" drag-drop>
+                            <task-card value="Define key fulfillment dates"></task-card>
+                            <task-card value="Prepare secondary order contingencies"></task-card>
+                            <task-card value="Map distribution channels for region A"></task-card>
+                    </task-list>
+                    <task-list name="Feedback" drag-drop>
+                            <task-card value="Prepare playtest feedback portal"></task-card>
+                            <task-card value="Establish feedback targets"></task-card>
+                    </task-list>
+                </task-board>
+            </div>
+            <script type="module">
+                const scopedExample = document.querySelector('article.scoped');
+                const scopedTaskBoard = scopedExample.querySelector('task-board');
+                const scopedRolloutTaskBoard = scopedExample.querySelector('task-board.rollout');
+                document.addEventListener('DOMContentLoaded', () =>
+                {
+                    const today = new Date(Date.now());
+                    document.querySelector('article.basic [slot="footer"] .value').textContent = today.toDateString();
+
+                    const projectLists = [...scopedTaskBoard.querySelectorAll('task-list')];
+                    for(let i = 0; i < projectLists.length; i++)
+                    {
+                        projectLists[i].dragAndDropQueryParent = scopedTaskBoard;
+                    }
+                    const rolloutLists = [...scopedRolloutTaskBoard.querySelectorAll('task-list')];
+                    for(let i = 0; i < rolloutLists.length; i++)
+                    {
+                        rolloutLists[i].parentScopeSelector = '.rollout ';
+                    }
+
+                    scopedTaskBoard.addEventListener('add', (event) =>
+                    {
+                        const task = document.createElement('task-card');
+                        task.addEventListener('remove', scoped_task_onRemove);
+                        const targetList = event.target; //currentTarget = task-board; target = task-list;
+                        targetList.append(task);
+                    });
+
+                    const tasks = [...scopedTaskBoard.querySelectorAll('task-card')];
+                    for(let i = 0; i < tasks.length; i++)
+                    {
+                        tasks[i].addEventListener('remove', scoped_task_onRemove);
+                    }
+                });
+
+                function scoped_task_onRemove(event)
+                {
+                    const task = event.currentTarget;
+                    task.remove();
+                }
+            </script>
+        </article>
+        <article class="styling">
+            <header>Styling</header>
+            <div class="description">
+                <p>Styling can be done on the <code>&lt;task-board&gt;</code> element, and its child <code>&lt;task-list&gt;</code> and <code>&lt;task-card&gt;</code> elements, with direct css selectors.</p>
+                <p>Styling the shadowDOM elements in any of these custom elements can be done using the respective <code>part</code> attributes.</p>
+                <p>In the example below, the same <code>&lt;task-board&gt;</code> content from the basic example has been styled with customized designs for the board, lists, and tasks:</p>
+            </div>
+            <div class="example">
+                <style>
+                    article.styling task-board
+                    {
+                        height: 600px;
+                        background: url(./daniel-shapiro-K3NwBdSaja0-unsplash.jpg);
+                        background-size: cover;
+                        border-radius: 10px;
+                    }
+
+                    article.styling task-board::part(lists)
+                    {
+                        padding-block: 1em;
+                    }
+
+                    article.styling task-board > header
+                    {
+                        color: #86cd62;
+                        text-shadow: 1px 1px 2px rgb(0 0 0 / .4);
+                        border-bottom: solid 2px;
+                        padding: 1em 2em;
+                        margin: 0;
+                        font-weight: bold;
+                    }
+
+                    article.styling task-board > footer
+                    {
+                        color: white;
+                        padding: .5em 1em;
+                        margin-left: auto;
+                    }
+                    article.styling task-board > footer a
+                    {
+                        color: white;
+                    }
+
+                    article.styling task-list
+                    {
+                        border: solid 1px rgb(0 0 0 / .8);
+                        padding: 1em .5em;
+                        margin-inline: .5em;
+                        border-radius: 10px;
+
+                        background: rgb(0 0 0 / .4);
+                    }
+                    article.styling task-list::-webkit-scrollbar
+                    {
+                        background: rgb(0 0 0 / .8);
+                        border-radius: 10px;
+                    }
+                    article.styling task-list::-webkit-scrollbar-thumb
+                    {
+                        border-radius: 10px;
+                        background: #1c1c1c;
+                    }
+
+                    article.styling task-list::part(color)
+                    {
+                        border-radius: 50%;
+                        width: 20px;
+                        height: 20px;
+                    }
+                    article.styling task-list::part(header)
+                    {
+                        /* grid-template-columns: auto minmax(0, 1fr) auto; */
+                        border-bottom: solid 1px #86cd62;
+                    }
+                    article.styling task-list::part(name)
+                    {
+                        padding: 0 7px;
+                    }
+                    article.styling task-list::part(collapse-button)
+                    {
+                        padding: 0;
+                        background: none;
+                        border: none;
+                        color: white;
+                    }
+                    article.styling task-list::part(add-button)
+                    {
+                        background: rgb(255 255 255 / .2);
+                        border: solid 1px rgb(255 255 255 / .4);
+                        color: white;
+                        border-radius: 30px;
+                        padding: .5em 1em;
+                        cursor: pointer;
+                        transition: background 200ms ease, border 200ms ease;
+                    }
+                    article.styling task-list::part(add-button):hover
+                    {
+                        background: rgb(255 255 255 / .4);
+                        border: solid 1px rgb(255 255 255 / .6);
+                    }
+
+                    article.styling task-card
+                    {
+                        padding: 0;
+                        border: none;
+                        margin: 0;
+                        align-items: center;
+                    }
+                    article.styling task-card::part(color)
+                    {
+                        display: none;
+                    }
+                    article.styling task-card::part(description)
+                    ,article.styling task-list::part(name)
+                    {
+                        margin: 0;
+                        font-family: cursive;
+                        font-size: 16px;
+                        color: white;
+                        text-shadow: 1px 1px rgb(0 0 0 / .4);
+                        background: none;
+                        border: none;
+                    }
+                    article.styling task-card::part(description)
+                    {
+                        min-width: 0;
+                        border-bottom: solid 1px highlight;
+                    }
+                    article.styling task-card::part(is-finished)
+                    {
+                        margin: 0;
+                    }
+                    article.styling task-card::part(remove-button)
+                    {
+                        margin: 0;
+                        background: none;
+                        border: none;
+                        --icon-primary-color: highlight;
+                        --icon-secondary-color: highlight;
+                        opacity: 0;
+                        transition: opacity 200ms ease;
+                        cursor: pointer;
+                    }
+                    article.styling task-card:hover::part(remove-button)
+                    {
+                        opacity: 1;
+                    }
+                    article.styling task-card::part(remove-button):hover
+                    {
+                        --icon-primary-color: red;
+                        --icon-secondary-color: red;
+                    }
+                </style>
+                <task-board>
+                    <header slot="header">Around the House</header>
+                    <task-list name="Housework" color="#4213ce">
+                        <task-list name="Kitchen" color="#7e51f5" drag-drop>
+                            <task-card value="Dishes"></task-card>
+                            <task-card value="Counters"></task-card>
+                            <task-card value="Floor"></task-card>
+                        </task-list>
+                        <task-list name="Laundry" color="#bea6fd" drag-drop>
+                            <task-card value="Wash and Dry"></task-card>
+                            <task-card value="Ironing"></task-card>
+                            <task-card value="Change Linens"></task-card>
+                        </task-list>
+                        <task-list name="Yard" color="#dbcdfe" drag-drop>
+                            <task-card value="Mow"></task-card>
+                            <task-card value="Edge"></task-card>
+                            <task-card value="Rake"></task-card>
+                        </task-list>
+                    </task-list>
+                    <task-list name="Shopping" color="#1d6e72">
+                        <task-list name="Grocery" color="#a4f6fe">
+                            <task-list name="Produce" color="#08ccd8" drag-drop>
                                 <task-card value="Tomato"></task-card>
                                 <task-card value="Cucumber"></task-card>
                                 <task-card value="Red Onion"></task-card>
                             </task-list>
-                            <task-list name="Dairy" drag-drop>
+                            <task-list name="Dairy" color="#4ceefb" drag-drop>
                                 <task-card value="Milk"></task-card>
                                 <task-card value="Butter"></task-card>
                             </task-list>
-                            <task-list name="Snacks" drag-drop>
+                            <task-list name="Snacks" color="#ccfaff" drag-drop>
                                 <task-card value="Corn chips"></task-card>
                                 <task-card value="Popcorn"></task-card>
                                 <task-card value="Ice cream sandwiches"></task-card>
                             </task-list>
                         </task-list>
-                        <task-list name="Cleaning" drag-drop>
+                        <task-list name="Cleaning" color="#a4f6fe" drag-drop>
                             <task-card value="Trash bags"></task-card>
                         </task-list>
-                        <task-list name="Garden" drag-drop>
+                        <task-list name="Garden" color="#a4f6fe" drag-drop>
                             <task-card value="Soil"></task-card>
                             <task-card value="Trimmer string"></task-card>
                         </task-list>
-                        <task-list name="Pharmacy" drag-drop>
+                        <task-list name="Pharmacy" color="#a4f6fe" drag-drop>
                             <task-card value="My prescription"></task-card>
                             <task-card value="Generic painkiller"></task-card>
                         </task-list>
                     </task-list>
+                    <task-list name="Car" color="#63382c">
+                        <task-list name="Maintenance" color="#b54c2b" drag-drop>
+                            <task-card value="Oil change"></task-card>
+                            <task-card value="New wiper blades"></task-card>
+                        </task-list>
+                        <task-list name="Service" color="#e8825e" drag-drop>
+                            <task-card value="Hood dent"></task-card>
+                            <task-card value="New tires"></task-card>
+                        </task-list>
+                    </task-list>
+                    <task-list name="Practice" color="#5fa43c" drag-drop>
+                        <task-card value="Warmup"></task-card>
+                        <task-card value="Set list"></task-card>
+                        <task-card value="New songs"></task-card>
+                    </task-list>
+                    <footer slot="footer">
+                        <div class="credit">
+                            Photo by <a href="https://unsplash.com/@joshuaworoniecki?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Joshua Woroniecki</a>
+                            on 
+                            <a href="https://unsplash.com/photos/green-and-brown-mountains-under-blue-sky-and-white-clouds-during-daytime-QOqFLsjBdF8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                                Unsplash
+                            </a>
+                        </div>
+                    </footer>
                 </task-board>
             </div>
-        </article>
-        <article class="events">
-            <header>Events</header>
-            <div class="description">
-                <!-- <p>The <code>&lt;task-list&gt;</code> element dispatches a <code>change</code> event whenever it is changed. This includes when the properties, like name or color, change as well as when the list's items change order.</p>
-                <p>When the "Add" button is clicked, the <code>&lt;task-list&gt;</code> will dispatch and <code>add</code> event.</p>
-                <p>When the list's <code>collapsed</code> state changes, like when the button toggles it, the <code>collapsed</code> event will be dispatched.</p>
-                <p>If a <code>&lt;task-list&gt;</code> element is added as a child to another <code>&lt;task-list&gt;</code> element, the top-level <code>&lt;task-list&gt;</code> element will dispatch a <code>nested</code> event.</p>
-                <p>If the drag and drop feature is enabled, the <code>&lt;task-list&gt;</code> element will dispatch an <code>added</code> event whenever an item is dragged into the list, and a <code>removed</code> event whenever an item is dropped in a different list than it was dragged from.</p>
-                <p>In this example, each event fired by the <code>&lt;task-list&gt;</code> element is listened for and the event's data is logged out to the event log, below:</p> -->
-            </div>
-            <div class="example">
-
-            </div>
-            <div class="log">
-                <header>
-                    <span class="title">Event Log</span>
-                </header>
-                <ul></ul>
-            </div>
             <script type="module">
-                // const eventsExample = document.querySelector('article.events');
-                // const eventsLog = document.querySelector('article.events .log ul')
+                const stylingExample = document.querySelector('article.styling');
+                const stylingTaskBoard = stylingExample.querySelector('task-board');
                 document.addEventListener('DOMContentLoaded', () =>
                 {
-                    
+                    stylingTaskBoard.addEventListener('add', (event) =>
+                    {
+                        const task = document.createElement('task-card');
+                        task.addEventListener('remove', styling_task_onRemove);
+                        const targetList = event.target; //currentTarget = task-board; target = task-list;
+                        targetList.append(task);
+                    });
+
+                    const tasks = [...stylingTaskBoard.querySelectorAll('task-card')];
+                    for(let i = 0; i < tasks.length; i++)
+                    {
+                        tasks[i].addEventListener('remove', styling_task_onRemove);
+                    }
                 });
-                function logResult(result)
+
+                function styling_task_onRemove(event)
                 {
-                    const entry = document.createElement('li');
-                    entry.textContent = JSON.stringify(result, null, 2);
-                    entry.classList.add('entry');
-                    eventsLog.append(entry);
+                    const task = event.currentTarget;
+                    task.remove();
                 }
             </script>
         </article>

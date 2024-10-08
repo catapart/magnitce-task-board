@@ -1,7 +1,7 @@
 # magnitce-task-board
 A custom `HTMLElement` that provides layout and managemnt for custom [`<task-list>`](https://github.com/catapart/magnitce-task-list) elements.
 
-Package size: ~Xkb minified, ~Ykb verbose.
+Package size: ~1kb minified, ~1kb verbose.
 
 ## Quick Reference
 ```html
@@ -51,21 +51,16 @@ import { TaskBoardElement } from "@magnit-ce/task-board";
 ## Overview
 The `<task-board>` element is a container element for [`<task-list>`](https://github.com/catapart/magnitce-task-list) elements.
 
-## Attributes
-|Attribute|Effect|
-|-|-|
-|`drag-drop`|Enables drag-and-drop functionality for all of the lists.|
+## Parts
+The `<task-board>` element only has one part in its shadowRoot and its name is `lists`. The `lists` part contains the default `<slot>`, so all of the [`<task-list>`](https://github.com/catapart/magnitce-task-list) elements will be rendered inside of the `lists` part.
 
 ## Drag and Drop
+Drag and drop functionality can be activated by using each of the [`<task-list>`](https://github.com/catapart/magnitce-task-list) elements' `drag-drop` attribute.
 
-### Customization
-#### `[TaskListElement].TASKCARD_TAG_NAME`
-The `TASKCARD_TAG_NAME` property of a `<task-list>` element determines the string that will be used to match "card" child elements. By default, this value is set to `<task-card>`, with the expectation of matching [`<task-card>`](https://github.com/catapart/magnitce-task-card) elements.  
-To be clear: this is only referenced by the drag-and-drop functionality and can otherwise be ignored.
-
-To use a custom list item, replace the `TASKCARD_TAG_NAME` with whatever the tag name is for the custom list item element.
+To scope the tasks in a `<task-board>` element's lists to the board, use the [`<task-list>`](https://github.com/catapart/magnitce-task-list) element's `dragAndDropQueryParent` or `parentScopeSelector` properties.
 
 ## Events
+The `<task-board>` element does not dispatch any events, itself. It can, however, be targeted for listening for any of the [`<task-list>`](https://github.com/catapart/magnitce-task-list) or [`<task-card>`](https://github.com/catapart/magnitce-task-card) elements' events. Because each of those elements dispatch events that bubble, any of their events can be listened for on the `<task-board>` element.
 
 ## Slots
 The `<task-board>` element allows customization by using slots to inject custom html content into its shadowRoot.

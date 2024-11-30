@@ -11,13 +11,14 @@ COMPONENT_STYLESHEET.replaceSync(`
 {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: minmax(var(--list-min-width), 1fr);
+    grid-auto-columns: max-content;
     flex: 1;
     overflow: auto hidden;
 }
 ::slotted(task-list)
 {
     overflow: hidden auto;
+    min-width: var(--list-min-width);
 }
 `);
 

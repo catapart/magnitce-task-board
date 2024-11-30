@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Board Demo</title>
-    <link rel="stylesheet" href="./demo-page.css">    
+    <title>&lt;task-board&gt; Demo</title>
+    <link rel="stylesheet" href="./demo-page.css"> 
     <style>
         article:is(.basic,.scoped) task-board
         {
@@ -36,16 +36,20 @@
             display: grid;
         }
     </style>
-</head>
-<body>
-    <main>
-        <h1>Overview</h1>
-        <div class="overview">
+  </head>
+    <body>
+        <main class="centered-single-column">
+            <header class="full-width">
+            <div class="content centered-single-column">
+                <h1>The <code>task-board</code> element</h1>
+            </div>
+            </header>
+        <article class="overview">
+            <h2>Overview</h2>
             <p>The <code>&lt;task-board&gt;</code> element provides a layout and expected scroll management for <code>&lt;task-list&gt;</code> elements. It can be targeted to handle <code>&lt;task-list&gt;</code> and <code>&lt;task-card&gt;</code> events, and it includes a header and footer as a convenience, but it is mostly a wrapper/container element that arranges <code>&lt;task-list&gt;</code>s for common use-cases.</p>
-        </div>
-        <h1>Examples</h1>
+        </article>
         <article class="basic">
-            <header>Basic Example</header>
+            <h2>Basic Example</h2>
             <div class="description">
                 <p>The <code>&lt;task-board&gt;</code> element provides a layout for <code>&lt;task-list&gt;</code> elements. This includes a header and footer, as well as a horizontally-scrolling section for the lists.</p>
                 <p>Because each <code>&lt;task-list&gt;</code> element and <code>&lt;task-card&gt;</code> element each dispatch their associated events - and because each of those events bubble - the <code>&lt;task-board&gt;</code> element, itself, does not need to dispatch any events. Even without native events, the <code>&lt;task-board&gt;</code> element can still be targeted for listening to any of the <code>&lt;task-list&gt;</code> element's events, or <code>&lt;task-card&gt;</code> element's events.</p>
@@ -159,7 +163,7 @@
             </script>
         </article>
         <article class="scoped">
-            <header>Scoped Drag and Drop</header>
+            <h2>Scoped Drag and Drop</h2>
             <div class="description">
                 <p>To prevent <code>&lt;task-card&gt;</code> elements from being dragged and dropped onto <code>&lt;task-board&gt;</code> elements that they did not originate from, use the <code>&lt;task-list&gt;</code> element's <code>dragAndDropQueryParent</code> or <code>parentScopeSelector</code> properties.</p>
                 <p>In this example, each list in each board has its scope limited to prevent dragging between boards.</p>
@@ -275,7 +279,7 @@
             </script>
         </article>
         <article class="styling">
-            <header>Styling</header>
+            <h2>Styling</h2>
             <div class="description">
                 <p>Styling can be done on the <code>&lt;task-board&gt;</code> element, and its child <code>&lt;task-list&gt;</code> and <code>&lt;task-card&gt;</code> elements, with direct css selectors.</p>
                 <p>Styling the shadowDOM elements in any of these custom elements can be done using the respective <code>part</code> attributes.</p>

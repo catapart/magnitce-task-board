@@ -1,6 +1,6 @@
 {
   "name": "@magnit-ce/task-board",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A custom html element that provides layout and management for custom task-list elements.",
   "type": "module",
   "main": "dist/task-board.js",

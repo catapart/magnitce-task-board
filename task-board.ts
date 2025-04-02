@@ -7,7 +7,7 @@ COMPONENT_STYLESHEET.replaceSync(`
     flex-direction: column;
     --list-min-width: 300px;
 }
-[part="lists"]
+#lists
 {
     display: grid;
     grid-auto-flow: column;
@@ -30,7 +30,7 @@ export class TaskBoardElement extends HTMLElement
     {
         super();
         this.attachShadow({ mode: "open" });
-        this.shadowRoot!.innerHTML = `<slot name="header"></slot><div part="lists"><slot></slot></div><slot name="footer"></slot>`;
+        this.shadowRoot!.innerHTML = `<slot name="header"></slot><div id="lists" part="lists"><slot></slot></div><slot name="footer"></slot>`;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
     }
 }

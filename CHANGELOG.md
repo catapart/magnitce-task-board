@@ -1,5 +1,11 @@
 # @magnit-ce/task-board
 
+## 0.0.4
+
+### Patch Changes
+
+- ebee808: changed styling to use id
+
 ## 0.0.3
 
 ### Patch Changes

@@ -22,6 +22,13 @@ COMPONENT_STYLESHEET.replaceSync(`
 }
 `);
 
+import '@magnit-ce/task-list';
+import type { TaskListAttributes } from '@magnit-ce/task-list';
+import { TaskListElement, TaskListEvents } from '@magnit-ce/task-list';
+import '@magnit-ce/task-card';
+import type { TaskCardProperties, TaskCardAttributes } from '@magnit-ce/task-card';
+import { TaskCardElement, TaskCardEvent, TaskCardPart } from '@magnit-ce/task-card';
+
 
 const COMPONENT_TAG_NAME = 'task-board';
 export class TaskBoardElement extends HTMLElement
@@ -38,3 +45,8 @@ if(customElements.get(COMPONENT_TAG_NAME) == null)
 {
     customElements.define(COMPONENT_TAG_NAME, TaskBoardElement);
 }
+
+export { COMPONENT_TAG_NAME as TASK_LIST_TAG_NAME, type TaskListAttributes, TaskListElement, TaskListEvents };
+
+
+export { COMPONENT_TAG_NAME as TASK_CARD_TAG_NAME, type TaskCardAttributes, TaskCardElement, TaskCardEvent, TaskCardPart, type TaskCardProperties };

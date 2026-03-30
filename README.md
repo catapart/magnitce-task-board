@@ -1,85 +1,128 @@
-# magnitce-task-board
-A custom `HTMLElement` that provides layout and managemnt for custom [`<task-list>`](https://github.com/catapart/magnitce-task-list) elements.
+# Warning - Non-production package
+> [!WARNING]  
+> This project is being prepared for production, but is not ready to be used as a dependency for anything. There will be breaking changes and unrecoverable states. Do not use until this warning has been removed.
+> When the library reaches the `1.0.0` designation, that will be a production package. From that point, you can use the major version number (`1` in `1.0.0`) to recognize when breaking changes are introduced.
 
-Package size: ~1kb minified, ~1kb verbose.
-
-## Quick Reference
-```html
-<script type="module" src="/path/to/task-board[.min].js"></script>
-```
-
-## Demos
-https://catapart.github.io/magnitce-task-board/demo/
-
-## Support
-- Firefox
-- Chrome
-- Edge
-- <s>Safari</s> (Has not been tested; should be supported, based on custom element support)
-
-## Getting Started
- 1. [Install/Reference the library](#referenceinstall)
-
-### Reference/Install
-#### HTML Import (not required for vanilla js/ts; alternative to import statement)
-```html
-<script type="module" src="/path/to/task-board[.min].js"></script>
-```
-#### npm
-```cmd
-npm install @magnit-ce/task-board
-```
-
-### Import
-#### Vanilla js/ts
-```js
-import "/path/to/task-board[.min].js"; // if you didn't reference from a <script>, reference with an import like this
-
-import { TaskBoardElement } from "/path/to/task-board[.min].js";
-```
-#### npm
-```js
-import "@magnit-ce/task-board"; // if you didn't reference from a <script>, reference with an import like this
-
-import { TaskBoardElement } from "@magnit-ce/task-board";
-```
-
----
----
----
+# The `task-board` Custom Element
 
 ## Overview
-The `<task-board>` element is a container element for [`<task-list>`](https://github.com/catapart/magnitce-task-list) elements.
+A custom html element that provides layout and management for custom task-list elements.
 
-## Parts
-The `<task-board>` element only has one part in its shadowRoot and its name is `lists`. The `lists` part contains the default `<slot>`, so all of the [`<task-list>`](https://github.com/catapart/magnitce-task-list) elements will be rendered inside of the `lists` part.
-
-## Drag and Drop
-Drag and drop functionality can be activated by using each of the [`<task-list>`](https://github.com/catapart/magnitce-task-list) elements' `drag-drop` attribute.
-
-To scope the tasks in a `<task-board>` element's lists to the board, use the [`<task-list>`](https://github.com/catapart/magnitce-task-list) element's `dragAndDropQueryParent` or `parentScopeSelector` properties.
-
-## Events
-The `<task-board>` element does not dispatch any events, itself. It can, however, be targeted for listening for any of the [`<task-list>`](https://github.com/catapart/magnitce-task-list) or [`<task-card>`](https://github.com/catapart/magnitce-task-card) elements' events. Because each of those elements dispatch events that bubble, any of their events can be listened for on the `<task-board>` element.
-
-## Slots
-The `<task-board>` element allows customization by using slots to inject custom html content into its shadowRoot.
-
-The `<task-board>` element exposes the following `slot`s: 
-|Slot Name|Description|Default
-|-|-|-|
-|`header`|A heading for the board's collection of lists. May include a title, action buttons, etc.|[HTMLHeaderElement]|
-|[Default]|Slot that holds all of the `<task-list>`s.(*note: this slot has no name; all children of the `<task-board>` element that do not specificy a `slot` attribute value will be placed in this default slot.*)|[empty]|
-|`footer`|An area to include additional content or data about the board.|[empty]|
-
-## Styling
-The `<task-board>` element itself, and its `<task-list>` children, can all be styled with CSS, normally. The `<task-board>` element does not utilize the shadowDOM, so all styling can be done with standard CSS selectors. For its header and footer slots, there are no default part elements, so any elements added to the header or footer slots can be styled with standard CSS selectors, as well.
-
-## `<task-list>` element
-The `<task-board>` element is designed as a parent to the [`<task-list>`](https://github.com/catapart/magnitce-task-list) element. It's designed as a thin wrapper element that is used more for clarity in the document, rather than unique features.
-
-`<task-list>` elements are the expected children for this library but as it is largely an abstracted layout, it will work with other child element types.
+|||||
+|-|-|-|-|
+|Package size, **verbose**:|~1kb|Package size, **minified**:|~1kb|
 
 
-## License
-This library is in the public domain. You do not need permission, nor do you need to provide attribution, in order to use, modify, reproduce, publish, or sell it or any works using it or derived from it.
+
+## Quick Start
+```html
+
+```
+
+## Links
+### Demo:
+https://catapart.github.io/magnitce-task-board
+### Documentation:
+https://catapart.github.io/magnitce-task-board/docs
+### Automated Testing:
+https://catapart.github.io/magnitce-task-board/tests.html
+
+## Repo Notes
+This section provides instructions for how to use the repo to develop the library.
+
+### Installation
+Install the repo using a package manager:
+```cmd
+npm install
+```
+
+### Configuration
+#### `tsconfig.json`
+The `tsconfig.json` file is generated by the `vite` dependency and has not been modified by this library. It uses strict linting and defaults to `es` modules, rather than `commonjs` modules. For more information about each of the `tsconfig.json` options, see the [tsconfig documentation](https://www.typescriptlang.org/tsconfig/).
+#### `vite.config`
+The `vite.config` file sets defaults options for the dev, build, and release processes, which allows the code to be packaged as a library (rather than a website) and defines custom inputs and outputs to exclude tests and create both `es` and `umd` modules. It also includes settings that allow for multiple file outputs with well-defined names and selective minification. For more information about configuring `vite`, see the [vite config documentation](https://vite.dev/config/).
+#### `vite.config.tests.ts`
+This specialized `vite.config` file defines custom inputs and outputs that include tests and then are packaged into the `test-runner` directory, rather than built to the `dist` directory.
+
+### Development
+The `src` directory has a `dev` subdirectory that is intended for development. Developers can link to code-test files written in typescript, which allows for full type support while writing tests during development.
+
+Place development tests in the `tests` subdirectory of the `dev` directory. Use the suffix `.tests` to denote that a typescript file is a code-tests file. (*example: `interface.tests.ts`*)
+
+Once tests have been added, the `build-tests` script can be used to compile the typescript tests into javascript tests that will be available for use in any `<code-tests>` or `<test-runner>` elements - including on the `tests.html` page.
+
+### Test Page
+The test page (`tests.html`) in the root directory can be used to demonstrate passing tests to users. 
+
+Tests can be created in the `src/dev/tests` directory and developed using the dev page. When all tests are passing, use the `build-tests` script to transpile the `.ts` test files into `.js` test files that are deployed to the `public/tests` directory, which can be referenced by the `tests.html` page.
+
+The test page will also expect a reference to the library file, which won't exist until the `build` script has been run. If running the project causes errors, check the test page to either remove the script tags requesting the library file, or build the library to provide the test page with its requested source file.
+
+### Scripts
+#### `dev`
+Use `vite` to begin a server with Hot Module Replacement, which will automatically reload any time a change in a source file is saved.
+#### `build`
+Use `vite` to transpile the source code into code chunks or library files. Files are output into the `dist` directory by default.
+#### `preview`
+Use `vite` to serve the `dist` directory. Useful for non-library projects, where the `dist` directory will contain an `index.html` file, or other browse-able entry point.
+#### `build-tests`
+Use `vite` to transpile all files with a `.tests.[ts|js|tsx|jsx]` extension into the `public/tests` subdirectory. Creates javascript files that can be served to the `<test-runner>` and `<code-tests>` components, which are included in the `public/libs` subdirectory.
+#### `changeset`
+Runs the `npx @changesets/cli` command to create a new changeset which will prepare the library to be published.
+#### `release`
+Use `vite` to transpile the source code and then use `changesets` to begin the publication procedure for the repo environment (github or gitlab).  
+If this script is run during CI/CD for the `main` branch, the library is published to [npm](https://www.npmjs.com/). If it is run during CI/CD for any other branch, the library is linted and compiled. It is expected that this command will *only* be used by a CI/CD pipeline, and **never** by a library dev. Running the `release` script on a local codebase is not supported.
+
+
+### Publishing
+
+#### Releasing with `changesets`
+Publishing is handled using the `changesets` library which starts the process by requiring a manual entry into a running version log. Once you have defined a set of changes as a version change, the automated processes can prepare the library to be published on to `npm`. When the automation has prepared the release, it will create a pull request from a new branch containing the release package. The publishing developer will be required to merge that branch into main, using the pull request, in order to publish a new version.
+
+The step-by-step process is outline below for both Github and Gitlab:
+
+##### Github Steps
+1. **Run `changeset` command**: `npm run changeset` | `bun run changeset` | `pnpm changesets` | `yarn changesets` | `npx @changesets/cli`
+1. **Log version info**: Add a message that describes the changes in this version
+1. **Check in**: Push changes to repo
+1. **Merge**: Merge branch into `main`
+1.  **Merge Automation Branch**: Await repo automation's creation of a new pull request from a newly created branch. Accept the pull request, merging the branch into main.
+
+After automation completes, the new version will be published to `NPM`.
+
+##### Gitlab Steps
+1. **Run `changeset` command**: `npm run changeset` | `bun run changeset` | `pnpm changesets` | `yarn changesets` | `npx @changesets/cli`
+1. **Log version info**: Add a message that describes the changes in this version
+1. **Check in**: Push changes to repo
+1. **Merge**: Merge branch into `main`
+1.  **Merge Automation Branch**: Await repo automation's creation of a new merge request from a newly created branch. Merge the merge request into main.
+
+After automation completes, the new version will be published to `NPM`.
+
+### Dependencies
+
+#### Library Dependencies
+
+
+#### Development Dependencies
+
+##### [`typescript`](https://www.typescriptlang.org/)
+Typescript provides type checking at dev time which adds compile-time safety to the codebase for a wide range of issues. For more information on Typescript, visit its [website](https://www.typescriptlang.org/).
+
+##### [`@changesets/cli`](https://github.com/changesets/changesets)
+The `changesets` library uses a strict process to handle versioning and publishing which makes the update and deployment of any library to NPM a structured and repeatable series of steps. Versioning is managed by a command-line utility which enforces release notes and semantic versions. Publishing is handled automatically by CI/CD pipelines when code is checked in. The structure allows for automated pipelines to handle linting and testing, while requiring manual directives to invoke action. Versions are not accidentally published, because all code changes that haven't been packaged into a changeset are transparent to the library. As soon as a version is updated (by the library), the CI/CD pipelines will trigger and the library developer will need to merge branches in order to complete the publishing. By enforcing these procedures, `changesets` keeps this library releasing traceable and well-versioned packages.
+
+##### [`vite`](https://vite.dev/)
+Vite is a packaging library that includes a lot of features that make development faster and easier. Packaging and minifying are built in as well as "hot module reload" so that saving any source file will reload the script in the development environment instantly. That is made even better because Vite also dynamically swaps typescript references for javascript references, meaning that a development build can target and debug with the typescript files directly. It is also configurable enough to account for a wide variety of project types.
+
+##### [`vite-plugin-dts`](https://www.npmjs.com/package/vite-plugin-dts)
+This plugin for the `vite` library allows the packaging process to also produce a `.d.ts` file to describe all of the Typescript types exposed by the library. Without that export, other projects that use Typescript would not be able to see the full manifest of exported types.
+
+##### [`@rollup/plugin-terser`](https://www.npmjs.com/package/@rollup/plugin-terser)
+This plugin, which was developed for one of `vite`'s dependencies (`rollup`) but is used in this project by `vite`, provides a type of minification that is not supported by the default library. Using this plugin, the library can be packaged with both unminified and minified code, so that developers who implement the library can debug the code in un-minified files, while still being able to ship a minified version without having to minify it in their own projects.
+
+##### [`@magnit-ce/test-runner`](https://github.com/catapart/magnitce-test-runner)
+This library adds custom HTML elements that allow developers to run simple definitions for automated tests directly in a browser. This element is used in the `dev` directory to provide live automated testing.
+
+##### [`glob`](https://www.npmjs.com/package/glob)
+`glob` is a low-level library that provides full-featured search capabilities to a command-line input. These search features are used by this library to differentiate between test files and source files within the `vite.config` files.
